@@ -10,7 +10,7 @@ namespace Bookstore.Models
     {
         public List<BasketLineItem> Items { get; set; } = new List<BasketLineItem>();
 
-        public virtual void AddItem(Book boo, int qty)
+        public virtual void AddBook(Book boo, int qty)
         {
             BasketLineItem line = Items
                 .Where(b => b.Book.BookId == boo.BookId)
@@ -30,7 +30,7 @@ namespace Bookstore.Models
                 line.Quantity += qty;
             }
         }
-        public virtual void RemoveItem(Book boo)
+        public virtual void RemoveBook(Book boo)
         {
             Items.RemoveAll(x => x.Book.BookId == boo.BookId);
         }
