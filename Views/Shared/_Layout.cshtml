@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - Bookstore</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="/lib/font-awesome/css/all.min.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -26,15 +27,22 @@
             </div>
         </nav>
     </header>
-    <div classs="row m-1 p1">
-        <div id="types" class="col-4">
-            <vc:category></vc:category>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col navbar-brand"></div>
+                <div class="col-6 text-right">
+                    <vc:cart-summary />
+                </div>
+            </div>
         </div>
-        <div class="container col-8">
-             @RenderBody()
+        <div class="row m-1 p-1">
+            <div id="types" class="col-3">
+                <vc:category></vc:category>
+            </div>
+            <div class="col-8">
+                @RenderBody()
+            </div>
         </div>
-    </div>
-
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2022 - Bookstore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
