@@ -1,0 +1,41 @@
+﻿@page "/admin/bookorders"
+@inherits OwningComponentBase<IBookOrderRepository>
+
+<BookOrdersTable TableTitle="Awaiting Shipment" BookOrders="Unshipped"
+               ButtonLabel="Ship" BookChosen="ShipBook"></BookOrdersTable>
+
+<BookOrdersTable TableTitle="Shipped" BookOrders="Shipped"
+               ButtonLabel="Reset-Not Shipped Yet" BookChosen="ResetShipment"></BookOrdersTable>
+
+<button class="btn btn-info" @onclick="@(x=>UpdateData())">Refresh Data</button>
+
+@code {
+
+    public IBookOrderRepository repo => Service;
+
+    public IEnumerable<BookOrder> AllShipments { get; set; }
+    public IEnumerable<BookOrder> Unshipped { get; set; }
+    public IEnumerable<BookOrder> Shipped { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        await UpdateData();
+    }
+
+    public async Task UpdateData()
+    {
+        AllShipments = await repo.BookOrders.ToListAsync();
+        Unshipped = AllShipments.Where(x => !x.BookShipped);
+        Shipped = AllShipments.Where(x => x.BookShipped);
+    }
+
+    public void ShipBook(int id) => UpdateShipping(id, true);
+    public void ResetShipment(int id) => UpdateShipping(id, false);
+
+    private void UpdateShipping(int id, bool shipped)
+    {
+        BookOrder bo = repo.BookOrders.FirstOrDefault(x => x.BookId == id);
+        bo.BookShipped = shipped;
+        repo.SaveBookOrder(bo);
+    }
+}

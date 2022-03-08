@@ -33,5 +33,8 @@ namespace Bookstore.Models
         public string Country { get; set; }
         [Required(ErrorMessage = "Please enter your phone number in case we have any questions")]
         public string Phone { get; set; }
+
+        [BindNever]
+        public bool BookShipped { get; set; }
     }
 }
