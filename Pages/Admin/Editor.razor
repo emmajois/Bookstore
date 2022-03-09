@@ -62,7 +62,7 @@
         <label>Price:</label>
         <div class="input-group">
             <ValidationMessage For="@(() =>b.Price)"></ValidationMessage>
-            <span class="input-group-text">$</span>
+            <span class="input-group-text">$</span> <!--This is the a little dollar sign button thing I put before the edit and add forms because BootStrap made it look cool!-->
             <InputNumber class="form-control" @bind-Value="b.Price"></InputNumber>
         </div>
     </div>
